@@ -13,18 +13,17 @@ include { SUMMARIZE_MERGED_BARCODES_TRIM } from './modules/summarize_merged_barc
 workflow {
 
     
-    Channel
-        .fromPath( params.input_path + "/*.fastq.gz")
-        .map{ it-> tuple(it.baseName.replace(".fastq",""), it)} 
-        .set { fq_ch }
+
 
     Channel
-        .fromPath("fastq/*.fastq.gz")
+        .fromPath(params.input_path + "/*.fastq.gz")
         .map {it -> tuple( params.pool_ID, it)}
-        .set { fq_ch2 }
-    SUMMARIZE_READS_ONT_FQ( fq_ch2) 
+        .set { fq_ch }
+        
+    SUMMARIZE_READS_ONT_FQ( fq_ch) 
+    
     Channel
-        .fromPath('barcodes.fa')
+        .fromPath(params.input_path + "/barcodes.fa")
         .set { barcode_ch }
 
 
