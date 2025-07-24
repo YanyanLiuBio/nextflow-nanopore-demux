@@ -17,8 +17,6 @@ process CUTADAPT_DEMUX_SE {
         -O 17 \\
         -e ${params.error_rate} \\
         -o ${pair_id}_{name}_R1_001.fastq.gz \\
-        --action=none \\
-        --no-trim \\
         ${fq1}
     """
 }
